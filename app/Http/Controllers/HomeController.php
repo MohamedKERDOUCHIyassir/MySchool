@@ -25,4 +25,14 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+    public function profile($id)
+    {
+        return view('profile')->with('id', $id);
+    }
+
+    public function me()
+    {
+
+    }
 }

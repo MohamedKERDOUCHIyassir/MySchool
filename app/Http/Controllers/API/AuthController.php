@@ -23,6 +23,7 @@ class AuthController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
+            'birth' => 'required|date',
             'email' => 'required|string|email|unique:users',
             'password' => 'required|string|confirmed'
         ]);
@@ -31,6 +32,7 @@ class AuthController extends Controller
 
         $user = new User([
             'name' => $request->name,
+            'birth'=> $request->birth,
             'email' => $request->email,
             'password' => bcrypt($request->password),
             'userable_id' => $student->id,

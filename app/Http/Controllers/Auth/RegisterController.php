@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use App\Student;
+use App\Classe;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Str;
+
 
 class RegisterController extends Controller
 {
@@ -65,16 +68,29 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $student = Student::create([ ]);
+        $student = Student::create([
+            'classe_id' => $data['classe_id']
+         ]);
         // var_dump($student);
         // die();
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'birth'=> $data['birth'],
+            'gender'=> $data['gender'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            
             'userable_id' => $student->id,
-            'userable_type' => 'Student',
+            'userable_type' => 'App\Student',
         ]);
+        $user->slug =Str::slug($user->name,'-').'-'.$user->id;
+        $user->save();
+        return $user;
+    }
+
+    protected function showRegistrationForm()
+    {
+        $classes = Classe::all();
+        return view('auth.register')->with('classes',$classes);
     }
 }

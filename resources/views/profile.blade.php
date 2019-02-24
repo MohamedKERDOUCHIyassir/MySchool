@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="profile-img">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt=""/>
+                <img src="{{asset($profile->photo)}}" alt=""/>
                     <div class="file btn btn-lg btn-primary">
                         Change Photo
                         <input type="file" name="file"/>
@@ -17,7 +17,7 @@
             <div class="col-md-6">
                 <div class="profile-head">
                             <h5>
-                                Kshiti Ghelani
+                                {{$profile->name}}
                             </h5>
                             <h6>
                                 Web Developer and Designer
@@ -60,7 +60,7 @@
                                         <label>User Id</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <p>Kshiti123</p>
+                                        <p>{{$profile->slug}}</p>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -68,7 +68,7 @@
                                         <label>Name</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <p>Kshiti Ghelani</p>
+                                        <p>{{$profile->name}}</p>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -76,7 +76,7 @@
                                         <label>Email</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <p>kshitighelani@gmail.com</p>
+                                        <p>{{$profile->email}}</p>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -89,10 +89,10 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <label>Profession</label>
+                                        <label>Class</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <p>Web Developer and Designer</p>
+                                        <p>{{$profile->userable->classe->name}}</p>
                                     </div>
                                 </div>
                     </div>

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
+use App\Student;
 
 class HomeController extends Controller
 {
@@ -28,7 +30,8 @@ class HomeController extends Controller
 
     public function profile($id)
     {
-        return view('profile')->with('id', $id);
+        $profile = User::find($id);
+        return view('profile')->with('profile', $profile);
     }
 
     public function me()

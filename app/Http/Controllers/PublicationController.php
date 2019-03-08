@@ -3,9 +3,23 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Publication;
+
 
 class PublicationController extends Controller
 {
+
+     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +27,7 @@ class PublicationController extends Controller
      */
     public function index()
     {
-        //
+        return view('');
     }
 
     /**
@@ -23,7 +37,7 @@ class PublicationController extends Controller
      */
     public function create()
     {
-        //
+        return view('publication.create');   
     }
 
     /**
@@ -34,7 +48,22 @@ class PublicationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator= $request->validate([
+            'title' => 'required|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
+            'user_id'   =>  'required'
+        ]);
+        $imageName = time().'.'.request()->image->getClientOriginalExtension();
+        request()->image->move(public_path('images/publications/'), $imageName);
+       
+        $publication = Publication::Create([
+            'title'         =>  $request->title,
+            'description'   =>  $request->description,
+            'image'         =>  $imageName,
+            'user_id'       =>  Auth::user()->id
+        ]);
+
+        return redirect()->back()->withErrors($validator)->withInput();
     }
 
     /**

@@ -23,3 +23,13 @@ Route::get('profile/{id}',[
     'uses'  => 'HomeController@profile',
     'as'    => 'profile'
 ]);
+
+Route::post('/publication/store',[
+    'uses'  => 'PublicationController@store',
+    'as'    => 'publication.store'
+]);
+
+Route::get('/publication/create',[
+    'uses'  => 'PublicationController@create',
+    'as'    => 'publication.create'
+]);

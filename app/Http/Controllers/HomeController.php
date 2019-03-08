@@ -28,9 +28,12 @@ class HomeController extends Controller
         return view('home');
     }
 
-    public function profile($id)
+    public function profile($slug)
     {
-        $profile = User::find($id);
+        
+        $profile = User::where('slug', $slug)->first();
+        if(!$profile)
+            abort(404);
         return view('profile')->with('profile', $profile);
     }
 
